@@ -12,11 +12,12 @@ var express = require('express');
 var seedDB = require('./seeds');
 var app = express();
 
-// Testing Image Uploader *********
+// Code for uploading images ********************* vvv
+// Testing Image Uploader
 var multer = require('multer');
 var path = require('path');
 
-// Set Storage Engine *********
+// Set Storage Engine
 var storage = multer.diskStorage({
   destination: './public/uploads/',
   filename: function (req, file, cb) {
@@ -24,10 +25,12 @@ var storage = multer.diskStorage({
   },
 });
 
-// Init Upload *********
+// Init Upload
 var upload = multer({
   storage: storage,
 }).single('image');
+
+// Code for uploading images ********************* ^^^
 
 // Requiring Routes
 var campgroundRoutes = require('./routes/campgrounds');
@@ -39,8 +42,7 @@ mongoose.connect(url, { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.static(__dirname + '/public'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
 app.use(flash());
 app.set('view engine', 'ejs');

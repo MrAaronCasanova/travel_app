@@ -3,11 +3,12 @@ var router = express.Router({ mergeParams: true });
 var Campground = require('../models/campground');
 var middleware = require('../middleware');
 
-// Testing Image Uploader *********
+// Code for uploading images ********************* vvv
+// Testing Image Uploader
 var multer = require('multer');
 var path = require('path');
 
-// Set Storage Engine *********
+// Set Storage Engine
 var storage = multer.diskStorage({
   destination: './public/uploads/',
   filename: function (req, file, cb) {
@@ -15,10 +16,12 @@ var storage = multer.diskStorage({
   },
 });
 
-// Init Upload *********
+// Init Upload
 var upload = multer({
   storage: storage,
 }).single('image');
+
+// Code for uploading images ********************* ^^^
 
 // INDEX - Show all campgrounds
 router.get('/', function (req, res) {
