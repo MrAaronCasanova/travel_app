@@ -1,0 +1,41 @@
+/* -------------------------------- */
+/* NAVBAR */
+/* -------------------------------- */
+
+/* push main content down due to .fixed-top navbar */
+body {
+  padding-top: 70px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+/* -------------------------------- */
+/* IMAGES */
+/* -------------------------------- */
+
+.thumbnail img {
+  /* max-height: 100%; */
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 2px 4px 11px #6e6e6e;
+}
+
+.thumbnail .caption {
+ /* box-shadow: 2px 5px 5px #999999; */
+ /* box-shadow: 2px 5px 10px rgba(153, 153, 153, 0.78); */
+ box-shadow: 2px 5px 10px rgba(153, 153, 153, 0.83);
+ padding: 15px 15px 5px 15px;
+ margin-bottom: 20px;
+ border-top: none;
+ background: linear-gradient(to bottom, white, lightgray);
+}
+
+/* -------------------------------- */
+/* FORMS */
+/* -------------------------------- */
+
+.delete-form {
+  display: inline;
+}
