@@ -39,3 +39,8 @@ body {
 .delete-form {
   display: inline;
 }
+
+.heading-form {
+  text-align: center;
+  margin: 20px;
+}
