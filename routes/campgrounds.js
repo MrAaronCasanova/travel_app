@@ -3,6 +3,23 @@ var router = express.Router({ mergeParams: true });
 var Campground = require('../models/campground');
 var middleware = require('../middleware');
 
+// Testing Image Uploader *********
+var multer = require('multer');
+var path = require('path');
+
+// Set Storage Engine *********
+var storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  },
+});
+
+// Init Upload *********
+var upload = multer({
+  storage: storage,
+}).single('image');
+
 // INDEX - Show all campgrounds
 router.get('/', function (req, res) {
   // Get all campgrounds from DB
@@ -17,26 +34,33 @@ router.get('/', function (req, res) {
 
 // CREATE - Add new campground to DB
 router.post('/', middleware.isLoggedIn, function (req, res) {
-  // get data from form and add to campgrounds array
-  var name = req.body.name;
-  var image = req.body.image;
-  var price = req.body.price;
-  var desc = req.body.description;
-  var author = {
-    id: req.user._id,
-    username: req.user.username,
-  };
-  var newCampground = { name: name, price: price,
-    image: image, description: desc, author: author, };
-
-  // Create a new campground and save to DB
-  Campground.create(newCampground, function (err, newlyCreated) {
+  upload(req, res, function (err) {
     if (err) {
-      console.log(err);
-    } else {
-      // redirect back to campgrounds page
-      // (defaults to get /campgrounds route)
+      req.flash('error', err.message);
       res.redirect('/campgrounds');
+    } else {
+      // get data from form and add to campgrounds array
+      var name = req.body.name;
+      var image = req.file.filename;
+      var price = req.body.price;
+      var desc = req.body.description;
+      var author = {
+        id: req.user._id,
+        username: req.user.username,
+      };
+      var newCampground = { name: name, price: price,
+        image: image, description: desc, author: author, };
+
+      // Create a new campground and save to DB
+      Campground.create(newCampground, function (err, newlyCreated) {
+        if (err) {
+          console.log(err);
+        } else {
+          // redirect back to campgrounds page
+          // (defaults to get /campgrounds route)
+          res.redirect('/campgrounds');
+        }
+      });
     }
   });
 
