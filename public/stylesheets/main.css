@@ -44,3 +44,12 @@ body {
   text-align: center;
   margin: 20px;
 }
+
+/* -------------------------------- */
+/* Campgrounds/index.ejs */
+/* -------------------------------- */
+
+.dest-flex {
+  display:flex;
+  flex-wrap: wrap;
+}
